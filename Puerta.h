@@ -7,6 +7,7 @@
 #include <string>
 #include <deque>
 #include "Vuelo.h"
+#include "Horas.h"
 
 using namespace std;
 
@@ -15,7 +16,7 @@ private:
     int Id;
     string Ubicacion;
     string Disponibilidad;
-    string Hora_Embarque;
+    Horas Hora_Embarque;
     Vuelo* act;
     bool Asignado;
     deque<Vuelo*> historial;
@@ -30,15 +31,16 @@ public:
     void setUbicacion(string newUbicacion);
     string getDisponibilidad();
     void setDisponibilidad(string newDisponibilidad);
-    string getHora_Embarque();
-    void setHoraDeEmbarque(string newH_Embarque);
+    Horas getHora_Embarque();
+    void setHoraDeEmbarque(Horas hora);
     void getHistorial();
     void addVuelo(Vuelo* newVuelo);
     void setV_Asignado(bool Valor);
     bool getV_Asignado();
-    //Vuelo* getVuelo();
+    Vuelo* getVuelo();
     void setVuelo(Vuelo* newVuelo);
     void Show_Info();
+    void Clear_Vuelo();
 };
 
 #endif // PUERTA_H

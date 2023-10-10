@@ -29,7 +29,7 @@ public:
     void setOrigen(const string& New_Origen);
     string getDestino();
     void setDestino(const string& value);
-    void Show_Info();
+    void Show_Info(bool Tripu);
 };
 
 #endif // VUELO_H

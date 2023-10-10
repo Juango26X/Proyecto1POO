@@ -52,7 +52,7 @@ public:
     bool Verificar_Fecha(Fecha* fecha);
     bool Verificar_Destino(string Destino);
     int Get_No_Vuelos();
-    void showVuelos();
+    void showVuelos(bool Trupi);
     void elimViuelo(int pos);
     void Show_Info();
 };

@@ -20,7 +20,10 @@ public:
 	void setDia(int dia);
 	void setMes(int mes);
 	void setAgno(int agno);
-	bool operator==(Fecha& A_Comparar);
+	bool operator==(Fecha* fecha);
+	void Show_Fecha();
+	void AddDia();
+	Fecha Get_Fecha();
 };
 
 #endif

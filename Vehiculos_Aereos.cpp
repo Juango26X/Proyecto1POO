@@ -113,19 +113,19 @@ int Vehiculos_Aereos::Get_No_Vuelos(){
     return tam;
 }
 
-void Vehiculos_Aereos::showVuelos() {
+void Vehiculos_Aereos::showVuelos(bool Trupi) {
     int tam = Vuelos_Act.size(), i = 0;
     if(tam != 0){
         if(tam > 1){
             cout << "Un vuelo disponible: " << endl;
             while(i < tam){
-                Vuelos_Act[i]->Show_Info();
+                Vuelos_Act[i]->Show_Info(Trupi);
                 i++;
             }
         }
             else{
                 cout << "Un vuelo disponible: " << endl;
-                Vuelos_Act[0]->Show_Info();
+                Vuelos_Act[0]->Show_Info(Trupi);
             }
     }
     else{
@@ -141,6 +141,10 @@ void Vehiculos_Aereos::elimViuelo(int pos) {
     else {
         cout << "La posición especificada no es válida." << endl;
     }
+    if(Vuelos_Act.size() < 4){
+        Estado = "Servicio";
+    }
+    Sleep(3000);
 }
 
 void Vehiculos_Aereos::Show_Info() {
@@ -172,8 +176,8 @@ bool Vehiculos_Aereos::Verificar_Fecha(Fecha* fecha){
     if(!Vuelos_Act.empty()){
         int tam = Vuelos_Act.size();
         for (int i = 0; i < tam ; ++i){
-            if(Vuelos_Act[i]->getFecha() == *fecha){
-                Vuelos_Act[i]->Show_Info();
+            if(Vuelos_Act[i]->getFecha() == fecha){
+                Vuelos_Act[i]->Show_Info(false);
             }
         }
     }
@@ -186,7 +190,7 @@ bool Vehiculos_Aereos::Verificar_Destino(string Destino){
         int tam = Vuelos_Act.size();
         for (int i = 0; i < tam ; ++i){
             if(Vuelos_Act[i]->getDestino() == Destino){
-                Vuelos_Act[i]->Show_Info();
+                Vuelos_Act[i]->Show_Info(false);
             }
         }
     }

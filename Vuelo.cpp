@@ -39,16 +39,18 @@ void Vuelo::setDestino(const string& value) {
 }
 
 
-void Vuelo::Show_Info(){
+void Vuelo::Show_Info(bool Tripu){
     cout << "Numero de Identificacion: " << No_Identificacion << endl;
     cout << "Fecha Programada: " << Fecha_Programada.getDia() << "/" << Fecha_Programada.getMes() << "/" << Fecha_Programada.getAgno() << endl;
     cout << "Origen: " << Origen << endl;
     cout << "Destino: " << Destino << endl;
-    if(!Tripulacion.empty()){
+    if(Tripu){
+        if(!Tripulacion.empty()){
         int tam = Tripulacion.size(), i = 0;
-        while(i < tam){
-            Tripulacion[i]->Show_Info_M();
-            i++;
+            while(i < tam){
+                Tripulacion[i]->Show_Info_M();
+                i++;
+            }
         }
     }
 }

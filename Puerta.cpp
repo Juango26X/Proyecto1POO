@@ -4,7 +4,9 @@
 
 // Constructor
 Puerta::Puerta(int id, string ubicacion, string disponibilidad)
-    : Id(id), Ubicacion(ubicacion), Disponibilidad(disponibilidad){}
+    : Id(id), Ubicacion(ubicacion), Disponibilidad(disponibilidad){
+        act = nullptr;
+    }
 
 int Puerta::getId() {
     return Id;
@@ -30,12 +32,12 @@ void Puerta::setDisponibilidad(string newDisponibilidad) {
     Disponibilidad = newDisponibilidad;
 }
 
-string Puerta::getHora_Embarque() {
+Horas Puerta::getHora_Embarque() {
     return Hora_Embarque;
 }
 
-void Puerta::setHoraDeEmbarque(string newH_Embarque) {
-    Hora_Embarque = newH_Embarque;
+void Puerta::setHoraDeEmbarque(Horas hora) {
+    Hora_Embarque = hora;
 }
 
 void Puerta::getHistorial() {
@@ -53,7 +55,7 @@ void Puerta::getHistorial() {
                     cout << "Sobre que vuelo desea recibir informacion? (Indique el numero del indice)" << endl;
                     cin >> vuelo_Sel;
                     if(vuelo_Sel > 0 && vuelo_Sel < tam){
-                        historial[vuelo_Sel - 1]->Show_Info();
+                        historial[vuelo_Sel - 1]->Show_Info(true);
                     }
                     break;
                 case 2:
@@ -69,7 +71,7 @@ void Puerta::getHistorial() {
             cin >> Info;
             switch(Info){
                 case 1:
-                    historial[0]->Show_Info();
+                    historial[0]->Show_Info(true);
                     break;
                 case 2:
                     cout << "Entendido" << endl;
@@ -86,6 +88,7 @@ void Puerta::getHistorial() {
 }
 
 void Puerta::addVuelo(Vuelo* newVuelo) {
+    cout << "El vuelo ha sido asignado" << endl;
     act = newVuelo;
     historial.push_back(newVuelo);
 }
@@ -97,16 +100,40 @@ void Puerta::setV_Asignado(bool Valor) {
 bool Puerta::getV_Asignado() {
     return Asignado;
 }
-/*
+
 Vuelo* Puerta::getVuelo() {
     return act;
 }
-*/
+
 void Puerta::setVuelo(Vuelo* newVuelo) {
     act = newVuelo;
     setV_Asignado(true);
 }
 
+void Puerta::Clear_Vuelo(){
+    Hora_Embarque.SetHora(0, 0);;
+    act = nullptr;
+    Asignado = false;
+}
+
 void Puerta::Show_Info() {
-    cout << Id << " " << Ubicacion << " " << Disponibilidad << " " << Hora_Embarque << " " <<  Asignado << endl;
+    cout << "ID: " << Id << endl;
+    cout << "Ubicacion: " << Ubicacion << endl;
+    cout << "Disponibilidad: " << Disponibilidad << endl;
+    if (act != nullptr && Asignado) {
+        cout << "Hora de Embarque: "; Hora_Embarque.Show_Hora(); cout << endl;
+        cout << "Vuelo Asignado: " << endl;
+        act->Show_Info(false);
+    } 
+    else {
+        cout << "No hay vuelo asignado." << endl;
+    }
+    if(!historial.empty()) {
+        cout << "Historial de Vuelos:\n" << endl;
+        for (int i = 0; i < historial.size(); i++) {
+            historial[i]->Show_Info(false); 
+        }
+    } else {
+        cout << "No hay historial de vuelos." << endl;
+    }
 }

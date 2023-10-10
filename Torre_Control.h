@@ -11,6 +11,9 @@
 #include "Avion.h"
 #include "Helicoptero.h"
 #include "Vuelo.h"
+#include "Horas.h"
+#include <windows.h>
+
 using namespace std;
 
 class Torre_Control {
@@ -25,9 +28,10 @@ public:
     Torre_Control();
 
     void Show_Puertas_Embarque();
-    void setPuertas_Embarque(int id, Vuelo* newVuelo);
-    void Show_Vuelos(string tipo, string Cat);
-    void Set_Vuelos(Vuelo* vuelo, string tipo);
+    void setPuertas_Embarque(Vuelo* newVuelo);
+    void Show_Vuelos(string tipo, string Cat, bool Tripu);
+    void Set_Vuelos(Vuelo* vuelo, string Tipo);
+    void Elim_Vuelo(int Id);
     void show_Vehiculos();
     void addVehiculo(Vehiculos_Aereos* newVehiculo);
     void elimVehiculo(int pos);
@@ -35,6 +39,7 @@ public:
     void Buy_Vuelos_D(int Id);
     void Show_Vuelos_Fecha(Fecha* fecha);
     void Show_Vuelos_Destino(string Destino);
+    void Show_Notificaciones(Fecha* hoy, Horas* ahora);
 };
 
 #endif // TORRE_CONTROL_H
