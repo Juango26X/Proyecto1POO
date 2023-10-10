@@ -5,7 +5,7 @@
 // Constructor
 Torre_Control::Torre_Control() {
     // Abre el archivo en modo lectura
-
+	system("cls");
 
 	int num = 0, id_tmp, num_areonaves, tmp = 0, Num_Asientos_tmp, velo_max_tmp, autonomia_tmp, agno_tmp, altura_max_tmp, no_motores_tmp, no_rotores_tmp, capa_elevacion_tmp;
 	string disponibilidad_tmp, ubicacion_tmp, marca_tmp, modelo_tmp, estado_tmp, propietario_tmp, cat_tmp, uso_tmp, tipo;
