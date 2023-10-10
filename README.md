@@ -8,7 +8,7 @@ las.
 https://drive.google.com/file/d/17RGN31BPJfZTFYyH7jMJKWJ6S7dZkHzm/view?usp=sharing
 ## ¿Como Compilar?
 
-## Requisitos Previos
+# Requisitos Previos
 - Asegúrate de tener un compilador C++ (como g++) instalado en tu sistema.
 - Tener un archivo Makefile configurado para compilar el programa(opcional).
 
@@ -20,14 +20,13 @@ https://drive.google.com/file/d/17RGN31BPJfZTFYyH7jMJKWJ6S7dZkHzm/view?usp=shari
 
 ### 2. Navega al Directorio del Proyecto:
 Utiliza el comando `cd` para cambiar al directorio donde se encuentra tu proyecto del aeropuerto, incluido el archivo Makefile.
-```shell
-cd /ruta/a/la/carpeta/de/tu/proyecto}
-##Makefile
+
 Ejecuta el comando make para compilar el programa utilizando el archivo Makefile.
 El Makefile especificará las reglas de compilación y enlazado necesarias para compilar el programa de manera eficiente. Asegúrate de que el Makefile esté correctamente configurado.
 
 Una vez que el programa se compile con éxito, puedes ejecutarlo con el siguiente comando:
 ./nombre_del_programa
+
 ## Menú Principal
 Al iniciar el programa, se le presentará un menú principal con varias opciones. Para seleccionar una opción, ingrese el número correspondiente y presione Enter.
 
