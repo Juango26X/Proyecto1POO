@@ -3,8 +3,8 @@
 #include "Vuelo.h"
 
 // Constructor
-Vuelo::Vuelo(int noIdentificacion, Fecha fecha, string origen, string destino)
-    : No_Identificacion(noIdentificacion), Fecha_Programada(fecha), Origen(origen), Destino(destino) {}
+Vuelo::Vuelo(int noIdentificacion, Fecha fecha, string origen, string destino, deque<M_Tripulacion*>& tripulacion)
+    : No_Identificacion(noIdentificacion), Fecha_Programada(fecha), Origen(origen), Destino(destino), Tripulacion(tripulacion) {}
 
 int Vuelo::getNo_Identificacion() const {
     return No_Identificacion;
@@ -44,5 +44,12 @@ void Vuelo::Show_Info(){
     cout << "Fecha Programada: " << Fecha_Programada.getDia() << "/" << Fecha_Programada.getMes() << "/" << Fecha_Programada.getAgno() << endl;
     cout << "Origen: " << Origen << endl;
     cout << "Destino: " << Destino << endl;
+    if(!Tripulacion.empty()){
+        int tam = Tripulacion.size(), i = 0;
+        while(i < tam){
+            Tripulacion[i]->Show_Info_M();
+            i++;
+        }
+    }
 }
 

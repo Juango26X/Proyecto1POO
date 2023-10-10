@@ -8,7 +8,7 @@ private:
     int Horas_Max;
 
 public:
-    M_Tripulacion(string tipo, int id, string nombre, string fechaNacimiento, char genero, string direccion, int telefono, string correo, string puesto, int exp, int horasMax);
+    M_Tripulacion(int id, string nombre, string fechaNacimiento, char genero, string direccion, int telefono, string correo, string puesto, int exp, int horasMax);
     M_Tripulacion();
     string getPuesto() const;
     void setPuesto(const string& puesto);
@@ -16,5 +16,6 @@ public:
     void setExp(int exp);
     int getHorasMax() const;
     void setHorasMax(int horasMax);
+    void Show_Info_M();
 };
 

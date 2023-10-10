@@ -2,11 +2,11 @@
 #include "Pasajero.h"
 
 // Implementación de los métodos de la clase Pasajero
-Pasajero::Pasajero(string tipo, int id, string nombre, string fechaNacimiento, char genero, string direccion, int telefono, string correo, string nacionalidad, int noMaletas, string infoMedica)
-    : Persona(tipo, id, nombre, fechaNacimiento, genero, direccion, telefono, correo), Nacionalidad(nacionalidad), No_Maletas(noMaletas), Info_Medica(infoMedica) {}
+Pasajero::Pasajero(int id, string nombre, string fechaNacimiento, char genero, string direccion, int telefono, string correo, string nacionalidad, int noMaletas, string infoMedica)
+    : Persona(id, nombre, fechaNacimiento, genero, direccion, telefono, correo), Nacionalidad(nacionalidad), No_Maletas(noMaletas), Info_Medica(infoMedica) {}
 
 Pasajero::Pasajero()
-    : Persona("NA", 0, "NA", "NA", 'N', "NA", 0, "NA"), Nacionalidad("NA"), No_Maletas(0), Info_Medica("NA") {}
+    : Persona(0, "NA", "NA", 'N', "NA", 0, "NA"), Nacionalidad("NA"), No_Maletas(0), Info_Medica("NA") {}
 
 
 string Pasajero::getNacionalidad() const {
@@ -31,4 +31,12 @@ string Pasajero::getInfo_Medica() const {
 
 void Pasajero::setInfo_Medica(const string& New_Info_Med) {
     Info_Medica = New_Info_Med;
+}
+
+void Pasajero::Show_Info_P(){
+	cout << "Informacion del pasajero: " << endl;
+	Show_Info();
+	cout << "Nacionalidad: " << Nacionalidad << endl;
+    cout << "Número de Maletas: " << No_Maletas << endl;
+    cout << "Información Médica: " << Info_Medica << endl;
 }

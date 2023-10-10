@@ -63,6 +63,7 @@ void Vehiculos_Aereos::Asignar_Pasajero(int pos) {
             cout << "Usted ha sido asignado al asiento: " << it->first << endl;
             it->second = true;
             salida = true;
+            Sleep(3000);
         }
         else{
             cout << "Ese asiento no se encuentra disponible" << endl;
@@ -75,6 +76,7 @@ void Vehiculos_Aereos::Asignar_Pasajero(int pos) {
     }
     if(intentos == 2 || it == Asientos.end()){
         cout << "Los asientos que intento reservar no se encuentran disponibles, porfavor intentelo nuevamente o en otro vuelo." << endl;
+        Sleep(3000);
     }
 
 }

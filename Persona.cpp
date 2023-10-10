@@ -3,11 +3,11 @@
 #include "Persona.h"
 
 // Implementación de los métodos de la clase Persona
-Persona::Persona(string tipo, int id, string nombre, string fechaNacimiento, char genero, string direccion, int telefono, string correo)
-    : Tipo(tipo), Id(id), Nombre(nombre), Fecha_Nacimiento(fechaNacimiento), Genero(genero), Direccion(direccion), Telefono(telefono), Correo(correo) {}
+Persona::Persona(int id, string nombre, string fechaNacimiento, char genero, string direccion, int telefono, string correo)
+    :Id(id), Nombre(nombre), Fecha_Nacimiento(fechaNacimiento), Genero(genero), Direccion(direccion), Telefono(telefono), Correo(correo) {}
 
 Persona::Persona()
-    : Tipo("NA"), Id(0), Nombre("NA"), Fecha_Nacimiento("NA"), Genero('N'), Direccion("NA"), Telefono(0), Correo("NA") {}
+    :Id(0), Nombre("NA"), Fecha_Nacimiento("NA"), Genero('N'), Direccion("NA"), Telefono(0), Correo("NA") {}
 
 int Persona::getId() const {
     return Id;
@@ -65,5 +65,15 @@ void Persona::setCorreo(const string& New_Correo) {
     Correo = New_Correo;
 }
 
+void Persona::Show_Info(){
+    cout << "Tipo: " << Tipo << endl;
+    cout << "ID: " << Id << endl;
+    cout << "Nombre: " << Nombre << endl;
+    cout << "Fecha de Nacimiento: " << Fecha_Nacimiento << endl;
+    cout << "Género: " << Genero << endl;
+    cout << "Dirección: " << Direccion << endl;
+    cout << "Teléfono: " << Telefono << endl;
+    cout << "Correo: " << Correo << endl;
+}
 
 

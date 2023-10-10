@@ -20,7 +20,7 @@ private:
     string Correo;
 
 public:
-    Persona(string tipo, int id, string nombre, string fechaNacimiento, char genero, string direccion, int telefono, string correo);
+    Persona(int id, string nombre, string fechaNacimiento, char genero, string direccion, int telefono, string correo);
     Persona();
 
     string Get_Tipo();
@@ -38,6 +38,7 @@ public:
     void setTelefono(int New_Tel);
     string getCorreo() const;
     void setCorreo(const string& New_Correo);
+    void Show_Info();
 };
 
 
