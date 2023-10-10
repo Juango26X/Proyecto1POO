@@ -6,6 +6,9 @@
 Puerta::Puerta(int id, string ubicacion, string disponibilidad)
     : Id(id), Ubicacion(ubicacion), Disponibilidad(disponibilidad){
         act = nullptr;
+        Horas hora(0, 0);
+        Hora_Embarque = hora;
+        
     }
 
 int Puerta::getId() {

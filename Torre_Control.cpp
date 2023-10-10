@@ -436,16 +436,24 @@ void Torre_Control::Show_Notificaciones(Fecha* hoy, Horas* ahora){
 	int tam = Puertas_Embarque.size(), Id_Vuelo;
 	Vuelo* tmp =nullptr;
 	bool entro = false;
+	Puerta* Puerta_tmp= nullptr;
 	for(int i = 0; i < tam; i++){
-		if( ahora->GetHora() >= Puertas_Embarque[i]->getHora_Embarque()){
+		Puerta_tmp = Puertas_Embarque[i]; 
+		if(ahora->GetHora() >= Puerta_tmp->getHora_Embarque()){
 			entro = true;
 			tmp = Puertas_Embarque[i]->getVuelo();
-			if(tmp->getFecha() == hoy){
+			if(tmp != nullptr){
+				if(tmp->getFecha() == hoy){
 				Id_Vuelo = tmp->getNo_Identificacion();
 				cout << "El vuelo " << Id_Vuelo << " ha despegado" << endl;
 				Elim_Vuelo(Id_Vuelo);
 				Puertas_Embarque[i]->Clear_Vuelo();
 			}
+			}
+			else{
+				entro = false;
+			}
+			
 			
 		}
 	}
