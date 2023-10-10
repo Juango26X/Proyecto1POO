@@ -97,4 +97,3 @@ Seleccione esta opción para ver información sobre los vuelos disponibles en el
 ## Salir
 Siempre puede seleccionar la opción "Salir" para cerrar el programa.
 
-Este es un resumen de cómo utilizar el programa del Aeropuerto Alfonso Bonilla Aragón. Siga las instrucciones según su rol y las acciones que desee realizar. ¡Disfrute su experiencia en el aeropuerto!
