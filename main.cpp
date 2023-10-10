@@ -13,6 +13,7 @@
 using namespace std;
 void Accion_Pasajero(Torre_Control* torre_control, deque<Pasajero*>& personas);
 void Accion_Areolinea(Torre_Control* torre_control);
+void Accion_Areopuerto(Torre_Control* torre_control);
 Torre_Control* Torre_De_Control = new Torre_Control();
 Horas* Referencia = new Horas(0, 0);
 Fecha* Hoy = new Fecha();
@@ -35,7 +36,8 @@ int main(){
 		cout << "1. Ingresar como pasajero." << endl;
 		cout << "2. Ingresar como areolinea." << endl;
 		cout << "3. Consultar informacion de vuelos." << endl;
-		cout << "4. Ingresar como propietario de Jet Privado" << endl;
+		cout << "4. Ver informacion de puertas." << endl;
+		cout << "5. Editar informacion de areopueto" << endl;
 		cout << "0. Salir" << endl;
 		cout << "\n";
 		Torre_De_Control->Show_Notificaciones(Hoy, Ahora);
@@ -52,6 +54,9 @@ int main(){
 				break;
 			case 4:
 				Torre_De_Control->Show_Puertas_Embarque();
+				break;
+			case 5:
+				Accion_Areopuerto(Torre_De_Control);
 				break;
 			case 0:
 				salida = true;
@@ -356,5 +361,119 @@ void Accion_Areolinea(Torre_Control* torre_control){
 		
 	}
 	
+}
+
+void Accion_Areopuerto(Torre_Control* torre_control){
+	int num = 0, id_tmp, num_areonaves, tmp = 0, Num_Asientos_tmp, velo_max_tmp, autonomia_tmp, agno_tmp, altura_max_tmp, no_motores_tmp, no_rotores_tmp, capa_elevacion_tmp;
+	string disponibilidad_tmp, ubicacion_tmp, marca_tmp, modelo_tmp, estado_tmp, propietario_tmp, cat_tmp, uso_tmp, tipo;
+	bool asignado_tmp, admitido = false;
+	Avion* Avion_tmp = nullptr;
+	Jet_Privado* Jet_tmp = nullptr;
+	Helicoptero* Helicoptero_tmp = nullptr;
+	cout << "Desea registrar areonaves en este areopuerto en este momento? (Num)\n1. Si.\n2. No" << endl;
+	cin >> num;
+	switch (num){
+		case 1:
+			cout << "Cuantas areonaves desea regitrar? (Num)" << endl;
+			cin >> num_areonaves;
+			if(num_areonaves > 0){
+				for(int i = 0; i < num_areonaves; i++){
+					cout << "Que tipo de areonave desea registrar? (Num)\n1. Avion\n2. Jet Privado\n3. Helicoptero\n0. Ninguno" << endl;
+					cin >> tmp;
+					switch (tmp){
+						case 1:
+							cout << "Porfavor indique la siguiente informacion:" << endl;
+							cout << "Indique la marca del avion (El nombre de la marca del avion)" << endl;
+							cin >> marca_tmp;
+							cout << "Indique el modelo del avion (El nombre del modelo del avion)" << endl;
+							cin >> modelo_tmp;
+							cout << "Indique el numero de asientos del avion (Num)" << endl;
+							cin >> Num_Asientos_tmp;
+							cout << "Indique la velocidad maxima del avion (Num)" << endl;
+							cin >> velo_max_tmp;
+							cout << "Indique la autonomia del avion (Num)" << endl;
+							cin >> autonomia_tmp;
+							cout << "Indique el agno de fabricacion del avion (Num)" << endl;
+							cin >> agno_tmp;
+							cout << "Indique el estado actual del avion (Servicio, Totalmente Asignada o Mantenimiento)" << endl;
+							cin >> estado_tmp;
+							cout << "Indique la altura maxima del avion (Num)" << endl;
+							cin >> altura_max_tmp;
+							cout << "Indique el numero de motores del avion (Num)" << endl;
+							cin >> no_motores_tmp;
+							cout << "Indique la categoria del avion (Comercial, Carga)" << endl;
+							cin >> cat_tmp;
+							tipo = "Avion";
+							Avion_tmp = new Avion(tipo, marca_tmp, modelo_tmp, Num_Asientos_tmp, velo_max_tmp, autonomia_tmp, agno_tmp, estado_tmp, altura_max_tmp, no_motores_tmp, cat_tmp);
+							torre_control->addVehiculo(Avion_tmp);
+							break;
+						case 2:
+							cout << "Porfavor indique la siguiente informacion:" << endl;
+							cout << "Indique la marca del Jet (El nombre de la marca del Jet)" << endl;
+							cin >> marca_tmp;
+							cout << "Indique el modelo del Jet (El nombre del modelo del Jet)" << endl;
+							cin >> modelo_tmp;
+							cout << "Indique el numero de asientos del Jet (Num)" << endl;
+							cin >> Num_Asientos_tmp;
+							cout << "Indique la velocidad maxima del Jet (Num)" << endl;
+							cin >> velo_max_tmp;
+							cout << "Indique la autonomia del Jet (Num)" << endl;
+							cin >> autonomia_tmp;
+							cout << "Indique el agno de fabricacion (Num)" << endl;
+							cin >> agno_tmp;
+							cout << "Indique el estado actual del Jet (Servicio, Totalmente Asignada o Mantenimiento)" << endl;
+							cin >> estado_tmp;
+							cout << "Indique el nombre del propietario" << endl;
+							cin >> propietario_tmp;
+							tipo = "Jet";
+							Jet_tmp = new Jet_Privado(tipo, marca_tmp, modelo_tmp, Num_Asientos_tmp, velo_max_tmp, autonomia_tmp, agno_tmp, estado_tmp, propietario_tmp);
+							torre_control->addVehiculo(Jet_tmp);
+							break;
+						case 3:
+							cout << "Porfavor indique la siguiente informacion:" << endl;
+							cout << "Indique la marca del Helicoptero (El nombre de la marca del Helicoptero)" << endl;
+							cin >> marca_tmp;
+							cout << "Indique el modelo del Helicoptero(El nombre del modelo del Helicoptero)" << endl;
+							cin >> modelo_tmp;
+							cout << "Indique el numero de asientos del Helicoptero (Num)" << endl;
+							cin >> Num_Asientos_tmp;
+							cout << "Indique la velocidad maxima del Helicoptero (Num)" << endl;
+							cin >> velo_max_tmp;
+							cout << "Indique la autonomia del Helicoptero (Num)" << endl;
+							cin >> autonomia_tmp;
+							cout << "Indique el agno de fabricacion del Helicoptero (Num)" << endl;
+							cin >> agno_tmp;
+							cout << "Indique el estado actual del Jet (Servicio, Totalmente Asignada o Mantenimiento)" << endl;
+							cin >> estado_tmp;
+							cout << "Indique el  numero de rotores del Helicoptero (Num)" << endl;
+							cin >> no_rotores_tmp;
+							cout << "Indique la capa de elevacion del Helicoptero (Num)" << endl;
+							cin >> capa_elevacion_tmp;
+							cout << "Indique para que se usa el Helicoptero (Rescate, Turismo, Transporte, etc.)" << endl;
+							cin >> uso_tmp;
+							tipo = "Helicoptero";
+							Helicoptero_tmp = new Helicoptero(tipo, marca_tmp, modelo_tmp, Num_Asientos_tmp, velo_max_tmp, autonomia_tmp, agno_tmp, estado_tmp, no_motores_tmp, capa_elevacion_tmp, uso_tmp);
+							torre_control->addVehiculo(Helicoptero_tmp);
+							break;
+						case 0:
+							cout << "Entendido\nRecuerde que puede registrar un vehiculo en cualquier momento" << endl;
+							break;
+						default:
+							cout << "Valor invalido\nRecuerde que puede registrar un vehiculo en cualquier momento" << endl;
+							break;
+					}
+				}
+			}
+			else{
+				cout << "Valor invalido\nEn otro momento puede registrar areonaves";
+			}
+			break;
+		case 2:
+			cout << "Entendido\nRecuerde que puede registrar un vehiculo en cualquier momento" << endl;
+			break;
+		default:
+			cout << "Valor invalido\nRecuerde que puede registrar un vehiculo en cualquier momento" << endl;
+			break;
+	}
 }
 
