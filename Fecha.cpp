@@ -2,7 +2,7 @@
 
 #include "Fecha.h"
 
-Fecha::Fecha() : Dia(1), Mes(1), Agno(2023) {}
+Fecha::Fecha() : Dia(9), Mes(10), Agno(2023) {}
 
 Fecha::Fecha(int dia, int mes, int agno) : Dia(dia), Mes(mes), Agno(agno) {}
 
@@ -30,8 +30,30 @@ void Fecha::setAgno(int agno) {
 	Agno = agno;
 }
 
-bool Fecha::operator==(Fecha& otraFecha){
-    return (Dia == otraFecha.Dia) && (Mes == otraFecha.Mes) && (Agno == otraFecha.Agno);
+Fecha Fecha::Get_Fecha(){
+	return *this;
+}
+
+bool Fecha::operator==(Fecha* fecha){
+    return (Dia == fecha->getDia()) && (Mes == fecha->getMes()) && (Agno == fecha->getAgno());
+}
+
+
+void Fecha::Show_Fecha(){
+	cout << Dia << "/" << Mes << "/" << Agno << endl;
+}
+
+void Fecha::AddDia(){
+	Dia ++;
+	if(Dia >= 31){
+		Dia = 1;
+		Mes++;
+	}
+	if(Mes >= 12 && Dia >= 31){
+		Mes = 1;
+		Dia = 1;
+		Agno++;
+	}
 }
 
 

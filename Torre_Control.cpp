@@ -154,33 +154,45 @@ void Torre_Control::Show_Puertas_Embarque() {
     	Puertas_Embarque[i]->Show_Info();
     	i++;
     }
+    Sleep(3000);
 }
 /*
 void Torre_Control::addPuertas_Embarque() {
     // Implementación de la función para agregar puertas de embarque
 }
 */
-void Torre_Control::setPuertas_Embarque(int id, Vuelo* newVuelo) {
+void Torre_Control::setPuertas_Embarque(Vuelo* newVuelo) {
+    int tam = Puertas_Embarque.size(), i = 0, Id_Tmp, Hora, Min;
+    bool disponibles = false, agregado = false;
+    Horas* hora = nullptr;
     cout << "Estas son las puertas que se encuentran disponibles: " << endl;
-    int tam = Puertas_Embarque.size(), i = 0, num_Disponibles = 0, P_Disponnible = 0;
-    bool disponibles = false;
-    while(i < tam || disponibles || num_Disponibles < 2){
-    	if(!Puertas_Embarque[i]->getV_Asignado()){
-    		disponibles = true;
-    		num_Disponibles++;
-    		P_Disponnible = i;
-    	}
-    	i++;
-    }
-    if(disponibles && num_Disponibles == 1){
-    	cout << "- " << Puertas_Embarque[num_Disponibles]->getId() << endl;
-    }
     while(i < tam){
     	if(!Puertas_Embarque[i]->getV_Asignado()){
-    		
+    		disponibles = true;
+    		Puertas_Embarque[i]->Show_Info();
     	}
     	i++;
     }
+    if(!disponibles){
+    	cout << "Aun no hay puertas" << endl;
+    }
+    else{
+	    cout << "Indique el Id de la puerta que desea reservar para este vuelo" << endl;
+	    cin >> Id_Tmp;
+	    i = 0;
+		while(i < tam && !agregado){
+	    	if(Puertas_Embarque[i]->getId() == Id_Tmp){
+	    		agregado = true;
+	    		cout << "Indique la hora de salida del vuelo (HH MM): ";
+	    		cin >> Hora >> Min;
+	    		hora = new Horas(Hora, Min);
+	    		Puertas_Embarque[i]->setHoraDeEmbarque(hora->GetHora());
+	    		Puertas_Embarque[i]->addVuelo(newVuelo);
+	    	}
+	    	i++;
+	    }
+    }
+    
 }
 
 void Torre_Control::show_Vehiculos() {
@@ -264,19 +276,19 @@ void Torre_Control::Buy_Vuelos_D(int Id) {
     }
 }
 
-void Torre_Control::Show_Vuelos(string tipo, string cat) {
+void Torre_Control::Show_Vuelos(string tipo, string cat, bool Trupi) {
     bool Hay_Vuelos = false;
 
     for (int i = 0; i < Aviones.size(); ++i) {
         if (tipo == "Avion" && cat == "Comercial" && Aviones[i]->get_categoria() == "Comercial") {
             if (Aviones[i]->Get_No_Vuelos() > 0) {
-                Aviones[i]->showVuelos();
+                Aviones[i]->showVuelos(Trupi);
                 Hay_Vuelos = true;
             }
         }
         else if (tipo == "Avion" && cat == "Carga" &&  Aviones[i]->get_categoria() == "Carga") {
             if (Aviones[i]->Get_No_Vuelos() > 0 && Aviones[i]->get_categoria() == "Carga") {
-                Aviones[i]->showVuelos();
+                Aviones[i]->showVuelos(Trupi);
                 Hay_Vuelos = true;
             }
         }
@@ -285,7 +297,7 @@ void Torre_Control::Show_Vuelos(string tipo, string cat) {
     for (int i = 0; i < Jets.size(); ++i) {
         if (tipo == "Jet" && Jets[i]->Get_Tipo() == "Jet") {
             if (Jets[i]->Get_No_Vuelos() > 0) {
-                Jets[i]->showVuelos();
+                Jets[i]->showVuelos(Trupi);
                 Hay_Vuelos = true;
             }
         }
@@ -294,7 +306,7 @@ void Torre_Control::Show_Vuelos(string tipo, string cat) {
     for (int i = 0; i < Helicopteros.size(); ++i) {
         if (tipo == "Helicoptero" && Helicopteros[i]->Get_Tipo() == "Helicoptero") {
             if (Helicopteros[i]->Get_No_Vuelos() > 0) {
-                Helicopteros[i]->showVuelos();
+                Helicopteros[i]->showVuelos(Trupi);
                 Hay_Vuelos = true;
             }
         }
@@ -362,7 +374,6 @@ void Torre_Control::Show_Vuelos_Fecha(Fecha* fecha){
     tam = Helicopteros.size();
     for (int i = 0; i < tam && !existen; i++) {
         existen = Helicopteros[i]->Verificar_Fecha(fecha);
-
         }
     if(!existen){
     	cout << "Aun no vuelos registrados con en esa fecha" << endl;
@@ -388,3 +399,57 @@ void Torre_Control::Show_Vuelos_Destino(string Destino){
     }
 }    
 
+void Torre_Control::Elim_Vuelo(int Id){
+	bool existen = false;
+    int tam = Aviones.size(), sel;
+    for (int i = 0; i < tam && !existen; i++) {
+        existen = Aviones[i]->Verificar_Vuelo(Id);
+        if(existen){
+        	Aviones[i]->elimViuelo(i);
+        }
+    }
+    tam = Jets.size();
+    for (int i = 0; i < tam && !existen; i++) {
+        existen = Jets[i]->Verificar_Vuelo(Id);
+        if(existen){
+        	Jets[i]->elimViuelo(i);
+        }
+    }
+    tam = Helicopteros.size();
+    for (int i = 0; i < tam && !existen; i++) {
+        existen = Helicopteros[i]->Verificar_Vuelo(Id);
+        if(existen){
+        	Jets[i]->elimViuelo(i);
+        }
+    }
+    if(!existen){
+    	cout << "Aun no vuelos registrados con ese codigo" << endl;
+    }
+    else{
+    	cout << "Vuelo eliminado" << endl;
+    	Sleep(3000);
+    }
+}
+
+void Torre_Control::Show_Notificaciones(Fecha* hoy, Horas* ahora){
+	cout << "notificaciones recientes del areopuerto:" << endl;
+	int tam = Puertas_Embarque.size(), Id_Vuelo;
+	Vuelo* tmp =nullptr;
+	bool entro = false;
+	for(int i = 0; i < tam; i++){
+		if( ahora->GetHora() >= Puertas_Embarque[i]->getHora_Embarque()){
+			entro = true;
+			tmp = Puertas_Embarque[i]->getVuelo();
+			if(tmp->getFecha() == hoy){
+				Id_Vuelo = tmp->getNo_Identificacion();
+				cout << "El vuelo " << Id_Vuelo << " ha despegado" << endl;
+				Elim_Vuelo(Id_Vuelo);
+				Puertas_Embarque[i]->Clear_Vuelo();
+			}
+			
+		}
+	}
+	if(!entro){
+		cout << "No hay notificaciones" << endl;
+	}
+}

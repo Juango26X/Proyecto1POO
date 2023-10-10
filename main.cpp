@@ -5,31 +5,40 @@
 #include "Vehiculos_Aereos.h"
 #include "Vuelo.h"
 #include "Persona.h"
-#include "Horas.h"
 #include "Fecha.h"
 #include "Pasajero.h"
+#include "Horas.h"
 #include <windows.h>
 
 using namespace std;
 void Accion_Pasajero(Torre_Control* torre_control, deque<Pasajero*>& personas);
 void Accion_Areolinea(Torre_Control* torre_control);
 Torre_Control* Torre_De_Control = new Torre_Control();
+Horas* Referencia = new Horas(0, 0);
+Fecha* Hoy = new Fecha();
+Horas* Ahora= new Horas();
 
 int main(){
-	
 	system("cls");
 	int seleccion1 = 0;
 	bool salida = false, Cliente = false, Tripulacion = false;
 	deque<Pasajero*> Pasajeros_Registrados;
-
 	while(!salida){
+		if(Ahora == Referencia){
+			Hoy->AddDia();
+		}
+		Ahora->Add_Min();
+		Hoy->Show_Fecha();
+		Ahora->Show_Hora();
+		printf("\n");
 		cout << "Bienvenido al areopuerto Alfonso Bonilla Aragon\nSeleccione la opcion de su preferencia:" << endl;
 		cout << "1. Ingresar como pasajero." << endl;
 		cout << "2. Ingresar como areolinea." << endl;
 		cout << "3. Consultar informacion de vuelos." << endl;
-
 		cout << "4. Ingresar como propietario de Jet Privado" << endl;
 		cout << "0. Salir" << endl;
+		cout << "\n";
+		Torre_De_Control->Show_Notificaciones(Hoy, Ahora);
 		cin >> seleccion1;
 		switch(seleccion1){
 			case 1:
@@ -39,10 +48,10 @@ int main(){
 				Accion_Areolinea(Torre_De_Control);
 				break;
 			case 3:
-				Torre_De_Control->Show_Vuelos("All", "Na");
+				Torre_De_Control->Show_Vuelos("All", "Na", false);
 				break;
 			case 4:
-
+				Torre_De_Control->Show_Puertas_Embarque();
 				break;
 			case 0:
 				salida = true;
@@ -50,14 +59,12 @@ int main(){
 			default:
 				break;
 		}
-
 	}	
 	delete Torre_De_Control;
 	return 0;
 }
 
 void Accion_Pasajero(Torre_Control* torre_control, deque<Pasajero*>& personas){
-
 	bool salida = false;
 	int seleccion, id, telefono, noMaletas, sel2, Id_Vuelo, dia, mes, agno;
 	Pasajero* Pasajero_Tmp = nullptr;
@@ -66,6 +73,13 @@ void Accion_Pasajero(Torre_Control* torre_control, deque<Pasajero*>& personas){
 	char genero;
 	while(!salida){
 		system("cls");
+		if(Ahora == Referencia){
+			Hoy->AddDia();
+		}
+		Ahora->Add_Min();
+		Hoy->Show_Fecha();
+		Ahora->Show_Hora();
+		printf("\n");
 		cout << "MODULO DE PASAJERO\nSeleccione la opcion de su preferencia:" << endl;
 		cout << "1. Registrar pasajero." << endl;
 		cout << "2. Ver todos los vuelos." << endl;
@@ -104,7 +118,7 @@ void Accion_Pasajero(Torre_Control* torre_control, deque<Pasajero*>& personas){
 					Sleep(3000);
 				}
 				else{
-					torre_control->Show_Vuelos("Avion", "Comercial");
+					torre_control->Show_Vuelos("Avion", "Comercial", false);
 					cout << "\nDesea reservar comprar un tiquete para alguno de los vuelos?\n1. Si.\n2.No" << endl;
 					cin >> sel2;
 					if(sel2 == 1){
@@ -165,6 +179,7 @@ void Accion_Pasajero(Torre_Control* torre_control, deque<Pasajero*>& personas){
 
 void Accion_Areolinea(Torre_Control* torre_control){
 	system("cls");
+	
 	bool salida = false;
 	int seleccion, noIdentificacion, dia, mes, agno, sel2, sel3, i, tam, id, telefono, exp, horasMax;
 	string origen, destino, nombre, fechaNacimiento, direccion, correo, puesto;
@@ -174,10 +189,17 @@ void Accion_Areolinea(Torre_Control* torre_control){
 	M_Tripulacion* tripu = nullptr;
 	deque<M_Tripulacion*> tripulacion;
 	while(!salida){
+		if(Ahora == Referencia){
+			Hoy->AddDia();
+		}
+		Ahora->Add_Min();
+		Hoy->Show_Fecha();
+		Ahora->Show_Hora();
+		printf("\n");
 		cout << "MODULO DE AREOLINEA\nSeleccione la opcion de su preferencia:" << endl;
 		cout << "1. Ver todas las areonaves disponibles." << endl;
 		cout << "2. Crear un vuelo y asignarlo a un vuelo" << endl;
-		cout << "3. Ver todos los vuelos.";
+		cout << "3. Ver todos los vuelos." << endl;
 		cout << "4. Eliminar un vuelo." << endl;
 		cout << "0. Salir" << endl;
 		cin >> seleccion;
@@ -187,8 +209,6 @@ void Accion_Areolinea(Torre_Control* torre_control){
 				torre_control->show_Vehiculos();
 				break;
 			case 2:
-				cout << "Estos son las areonaves registradas en el areopuerto: ";
-				torre_control->show_Vehiculos();
 				cout << "Desea registrar un vuelo para:\n1. Un avion.\n2. Un helicoptero." << endl;
 				cin >> sel2;
 				switch(sel2){
@@ -250,7 +270,7 @@ void Accion_Areolinea(Torre_Control* torre_control){
 					    }
 					    vuelo = new Vuelo(noIdentificacion, *fecha, origen, destino, tripulacion);
 					    torre_control->Set_Vuelos(vuelo, "Avion");
-
+					    torre_control->setPuertas_Embarque(vuelo);
 					    break;
 					case 2:
 						cout << "Ingrese el numero de identificacion del helicoptero: ";
@@ -318,8 +338,13 @@ void Accion_Areolinea(Torre_Control* torre_control){
 
 				break;
 			case 3:
+				torre_control->Show_Vuelos("All", "Na", true);
 				break;
 			case 4:
+				torre_control->Show_Vuelos("All", "Na", false);
+				cout << "Ingrese el codigo del vuelo que desea eliminar" << endl;
+				cin >> sel2;
+				torre_control->Elim_Vuelo(sel2);
 				break;
 			case 0:
 				salida = true;
@@ -328,6 +353,7 @@ void Accion_Areolinea(Torre_Control* torre_control){
 			default:
 				break;
 		}
+		
 	}
 	
 }

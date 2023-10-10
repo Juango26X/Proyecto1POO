@@ -13,8 +13,14 @@ class Horas{
 	public:
 		Horas(int hora, int min);
 		Horas();
+		void Add_Min();
 		void SetHora(int hora, int min);
 		Horas GetHora();
+		int Get_H();
+		int Get_M();
+		void Show_Hora();
+		bool operator>=(Horas hora);
+		bool operator==(Horas hora);
 };
 
 
