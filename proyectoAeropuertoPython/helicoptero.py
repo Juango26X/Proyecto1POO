@@ -18,6 +18,8 @@ class Helicoptero(VehiculosAereos):
 
     def setCapa_Elevacion(self, New_Ele):
         self.Capa_Elevacion = New_Ele
+    def get_Uso(self):
+        return self.uso
 
     def Show_Uso(self):
         print(self.uso)

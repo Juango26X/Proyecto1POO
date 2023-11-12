@@ -8,7 +8,7 @@ class VehiculosAereos:
         self.Velo_Max = velo_max
         self.Autonomia = autonomia
         self.Agno = agno
-        self.Estado = estad
+        self.Estado = estado
         self.Vuelos_Act = []
 
     def Get_Tipo(self):
