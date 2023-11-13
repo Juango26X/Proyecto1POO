@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
+from datetime import date
 from helicoptero import Helicoptero
 # from Vuelo import Vuelo
 from fecha import Fecha
@@ -18,12 +18,18 @@ from controler import Controller
 
 
 def main():
-    if st.checkbox('Show dataframe'):
-        chart_data = pd.DataFrame(
-            np.random.randn(20, 3),
-            columns=['a', 'b', 'c'])
+    df = pd.DataFrame({
+        'first column': [1, 2, 3, 4],
+        'second column': [10, 20, 30, 40]
+        })
 
-    chart_data
+    option = st.selectbox(
+        'Which number do you like best?',
+        df['first column'])
+
+    'You selected: ', option
+
+    date = st.date_input("Pick a date")
     controler = Controller()
     controler.Show_Menu()
 

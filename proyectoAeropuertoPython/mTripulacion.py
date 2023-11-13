@@ -1,3 +1,5 @@
+import streamlit as st
+
 from Persona import Persona
 class MTripulacion(Persona):
     def __init__(self, id, nombre, fechaNacimiento, genero, direccion, telefono, correo, puesto, exp, horasMax):
@@ -7,8 +9,9 @@ class MTripulacion(Persona):
         self.HorasMax = horasMax
 
     def ShowInfoM(self):
-        print("La información del miembro de la tripulación es:")
+        st.write("La información del miembro de la tripulación es:")
         self.ShowInfo()
-        print(f"Puesto: {self.Puesto}")
-        print(f"Experiencia: {self.Exp} años")
-        print(f"Horas Máximas: {self.HorasMax} horas")
+        st.write(f"Puesto: {self.Puesto}")
+        st.write(f"Experiencia: {self.Exp} años")
+        st.write(f"Horas Máximas: {self.HorasMax} horas")
+

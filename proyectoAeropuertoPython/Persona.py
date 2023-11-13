@@ -1,3 +1,4 @@
+import streamlit as st
 class Persona:
     def __init__(self, id, nombre, fecha_nacimiento, genero, direccion, telefono, correo):
         self.Tipo = "Persona"  
@@ -10,12 +11,13 @@ class Persona:
         self.Correo = correo
 
     def Show_Info(self):
-        print("Tipo:", self.Tipo)
-        print("ID:", self.Id)
-        print("Nombre:", self.Nombre)
-        print("Fecha de Nacimiento:", self.Fecha_Nacimiento)
-        print("Género:", self.Genero)
-        print("Dirección:", self.Direccion)
-        print("Teléfono:", self.Telefono)
-        print("Correo:", self.Correo)
+        st.write("Tipo:", self.Tipo)
+        st.write("ID:", self.Id)
+        st.write("Nombre:", self.Nombre)
+        st.write("Fecha de Nacimiento:", self.Fecha_Nacimiento)
+        st.write("Género:", self.Genero)
+        st.write("Dirección:", self.Direccion)
+        st.write("Teléfono:", self.Telefono)
+        st.write("Correo:", self.Correo)
+
 

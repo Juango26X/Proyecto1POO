@@ -5,6 +5,7 @@ from helicoptero import Helicoptero
 from avion import Avion
 from torredecontrol import Torre
 import streamlit as st
+from Vuelo import Vuelo
 
 class Controller:
     def __init__(self):
@@ -50,20 +51,29 @@ class Controller:
             if data:
                 print("entro")
                 avion = Avion(tipo=data["tipo"], marca=data["marca"], modelo=data["modelo"], num_asientos=data["num_asientos"], velo_max=data["velo_Max"], autonomia=data["agno"], agno=data["agno"], estado=data["estado"], altura_max=data["alt_Max"], no_motores=data["no_Motores"], cat=data["cat"])
-                self.torre.add_Vehiculo(avion)
+                self.torre.add_Vehiculo(data["modelo"], avion)
         elif option == 'Helicoptero':
             data = self.view.View_Crer_Helicoptero()
             if data:
                 helicoptero = Helicoptero(tipo=data["tipo"], marca=data["marca"], modelo=data["modelo"], num_asientos=data["num_asientos"], velo_max=data["velo_Max"], autonomia=data["agno"], agno=data["agno"], estado=data["estado"], capa_elevacion=data["capa_elevacion"], no_rotores=data["no_Rotores"], uso=data["uso"])
-                self.torre.add_Vehiculo(helicoptero)
+                self.torre.add_Vehiculo(data["modelo"], helicoptero)
         elif option == 'Jet Privado':
             data = self.view.View_Crear_Jet_Privado()
             if data:
                 jet_privado = JetPrivado(tipo=data["tipo"], marca=data["marca"], modelo=data["modelo"], num_asientos=data["num_asientos"], velo_max=data["velo_Max"], autonomia=data["agno"], agno=data["agno"], estado=data["estado"], propietario=data["propietario"])
-                self.torre.add_Vehiculo(jet_privado)
+                self.torre.add_Vehiculo(data["modelo"],jet_privado)
     
     def Areolinea(self):
-        print("Areolinea")
+        option = self.view.View_Areolinea()
+        if option == 'Crear un vuelo':
+            data = self.view.Crear_Vuelo(self.torre.get_All())
+            if data:
+                vuelo = Vuelo(no_identificacion=data["no_identificacion"], fecha=data["fecha"], origen=data["origen"], destino=data["destino"], tripu=data["tripulacion"])
+                self.torre.Add_Vuelo(data['id'], vuelo)
+        elif option == 'Ver vuelos disponibles':
+            self.view.Ver_Vuelos_Areolinea(self.torre.get_All())
+        #elif option == 'Eliminar vuelo':
+
     
     def Ver_Vuelos(self):
         print("Vuelos")

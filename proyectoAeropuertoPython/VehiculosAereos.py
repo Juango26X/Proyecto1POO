@@ -1,3 +1,6 @@
+import streamlit as st
+import Vuelo as Vuelo
+
 class VehiculosAereos:
     def __init__(self, tipo, marca, modelo, num_asientos, velo_max, autonomia, agno, estado):
         self.Tipo = tipo
@@ -9,7 +12,11 @@ class VehiculosAereos:
         self.Autonomia = autonomia
         self.Agno = agno
         self.Estado = estado
-        self.Vuelos_Act = []
+        if 'Vuelos' not in st.session_state:
+            st.session_state['Vuelos'] = {}
+            self.Vuelos_Act = {}
+        else:
+            self.tripulacion = st.session_state['Vuelos']
 
     def Get_Tipo(self):
         return self.Tipo
@@ -64,9 +71,11 @@ class VehiculosAereos:
 
     def addVuelo_T(self, Valor):
         if len(self.Vuelos_Act) != 3:
-            self.Vuelos_Act.append(Valor)
+            id = Valor.get_no_identificacion()
+            self.Vuelos_Act[id] = Valor
+            st.session_state['Vuelos'] = self.Vuelos_Act
         else:
-            print("El avión se encuentra totalmente asignado")
+            st.write("::warning:: La areonave esta totalmente asignada")
         if len(self.Vuelos_Act) == 3:
             self.Estado = "Totalmente Asignado"
 
@@ -76,15 +85,18 @@ class VehiculosAereos:
     def Get_No_Vuelos(self):
         return len(self.Vuelos_Act)
 
-    def showVuelos(self, Trupi):
+    def showVuelos(self):
         if self.Vuelos_Act:
             if len(self.Vuelos_Act) > 1:
-                print("Vuelos disponibles:")
-                for vuelo in self.Vuelos_Act:
-                    vuelo.Show_Info(Trupi)
+                st.header('Estos son los vuelos asociados al avion', self.marca)
+                ids = self.Vuelos_Act.keys()
+                for i in ids:
+                    self.Vuelos_Act[i].show_info()
             else:
-                print("Vuelo disponible:")
-                self.Vuelos_Act[0].Show_Info(Trupi)
+                st.header('Estos es el vuelo asociado al avion', self.marca)
+                ids = self.Vuelos_Act.keys()
+                for i in ids:
+                    self.Vuelos_Act[i].show_info()
         else:
             print("No hay vuelos disponibles")
 
@@ -97,13 +109,16 @@ class VehiculosAereos:
             self.Estado = "Servicio"
 
     def Show_Info(self):
-        print("Marca:", self.Marca)
-        print("Modelo:", self.Modelo)
-        print("Numero de Asientos:", self.Num_asientos)
-        print("Velocidad Maxima:", self.Velo_Max)
-        print("Autonomia:", self.Autonomia)
-        print("Agno de Fabricacion:", self.Agno)
-        print("Estado:", self.Estado)
+        st.header('Esta es la informacion de la areonave:')
+        st.write("Marca:", self.Marca)
+        st.write("Modelo:", self.Modelo)
+        st.write("Numero de Asientos:", self.Num_asientos)
+        st.write("Velocidad Maxima:", self.Velo_Max)
+        st.write("Autonomia:", self.Autonomia)
+        st.write("Agno de Fabricacion:", self.Agno)
+        st.write("Estado:", self.Estado)
+
+
 
     def Verificar_Vuelo(self, Id):
         if self.Vuelos_Act:

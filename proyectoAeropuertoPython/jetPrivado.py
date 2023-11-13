@@ -3,9 +3,9 @@ class JetPrivado(VehiculosAereos):
     def __init__(self, tipo, marca, modelo, num_asientos, velo_max, autonomia, agno, estado, propietario):
         super().__init__(tipo, marca, modelo, num_asientos, velo_max, autonomia, agno, estado)
         self.Propietario = propietario
-        self.Servicios = []
-        self.Destinos = []
-
+        self.Servicios = ['Hola, a']
+        self.Destinos = ['Adios, b']
+    '''
         Num_Servicios = int(input("Cuantos servicios a bordo tiene el Jet Privado? "))
         for i in range(Num_Servicios):
             servicio = input(f"Ingrese el servicio {i + 1}: ")
@@ -14,6 +14,7 @@ class JetPrivado(VehiculosAereos):
         for i in range(3):
             destino = input("Ingrese un destino frecuente del jet privado: ")
             self.Destinos.append(destino)
+    '''
 
     def GetPropietario(self):
         return self.Propietario
@@ -96,7 +97,8 @@ class JetPrivado(VehiculosAereos):
             print("La posición especificada no es válida.")
 
     def Show_Info_J(self):
+        print("Ola")
         self.Show_Info()
         print(f"Propietario: {self.Propietario}")
-        self.Show_Servicios()
-        self.Show_Destinos()
+        #self.Show_Servicios()
+        #self.Show_Destinos()

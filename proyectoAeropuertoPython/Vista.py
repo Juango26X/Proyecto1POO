@@ -1,10 +1,12 @@
 import streamlit as st
 import pandas as pd
+from datetime import date
 from VehiculosAereos import VehiculosAereos
 from jetPrivado import JetPrivado
 from helicoptero import Helicoptero
 from avion import Avion
-
+from mTripulacion import MTripulacion
+from torredecontrol import Torre
 class Vista:
     def __init__(self):
         st.title("Menu principal")
@@ -21,12 +23,11 @@ class Vista:
         
     def View_Estado_Areonaves(self, aeronaves):
         if aeronaves:
-            avion = 0
-            helicop = 0
-            jet = 0
             st.header("Módulo de visualización de areonaves")
-            for vehiculo in aeronaves:
+            ids = aeronaves.keys()
+            for i in ids:
                 # Luego, puedes obtener los atributos usando los métodos de la clase
+                vehiculo = aeronaves[i]
                 tipo = vehiculo.Get_Tipo()
                 marca = vehiculo.getMarca()
                 modelo = vehiculo.getModelo()
@@ -149,7 +150,62 @@ class Vista:
 
     def View_Areolinea(self):
         print("Areolinea")
+        acciones = ['Ver vuelos disponibles','Crear un vuelo', 'Eliminar vuelo']
+        df = pd.DataFrame({
+            'Acciones': acciones})
+        option = st.selectbox(
+            'Seleccione una opción',
+            df['Acciones'])
+        return option
+
     
+    def Crear_Vuelo(self, lista):
+        st.header('Informacion de vuelo')
+        tripulacion = []
+        no_identificacion = st.number_input("Indique el numero de identificacion del vuelo", step = 1)
+        fecha = st.date_input("Seleccione la fecha del vuelo")
+        origen = st.text_input("Cual es la ciudad de origen?")
+        destino = st.text_input("Cual es la ciudad de destino?")
+        st.header('Informacion de los miembros de tripulacion')
+        st.write('Para agregar el nuevo miembro de la tripulacion debe oprimir el boton "Agregar miembro"')
+        id = st.number_input("Indique el id del miembro", step = 1)
+        nombre = st.text_input('Indique el nombre del miembro')
+        fechaNacimiento = st.date_input('Indique la fecha de nacimiento del miembro')
+        genero = st.radio("Cual es el genero del miembro",["***Hombre***", "***Mujer***", "***No binario***"], index=None)
+        direccion = st.text_input('Indique la direccion del miembro')
+        telefono = st.number_input('Indique el numero de telefono del miembro', step = 1)
+        correo = st.text_input('Indique el correo del miembro')
+        puesto = st.text_input('Indique el puesto del miembro')
+        exp = st.number_input('Idique la experiencia del miembro', step = 1)
+        horasMax = st.number_input('Indique las horas maximas del miembro de la tripulacion', step = 1)
+        Agregar1 = st.button("Agregar miembro", type="primary")
+        if Agregar1:
+            Tripulante = MTripulacion(id, nombre, fechaNacimiento, genero, direccion, telefono, correo, puesto, exp, horasMax)
+            tripulacion.append(Tripulante)
+        st.header('Debe seleccionar la areonave a la que se le va a asignar el vuelo')
+        ids = lista.keys()
+        df2 = pd.DataFrame({'first column': ids})
+        option2 = st.selectbox('A que areonave le gustaria agregar el vuelo? (Seleccione para ver mas informacion)', df2['first column'])
+        lista[option2].Show_Info()
+        Agregar2 = st.button("Agregar el vuelo", type="primary")
+        if Agregar2:
+            return {
+                "no_identificacion" : no_identificacion,
+                "fecha" : fecha,
+                "origen" : origen,
+                "destino" : destino,
+                "tripulacion" : tripulacion,
+                "id" : option2
+            }
+
+    def Ver_Vuelos_Areolinea(self,lista):
+        if lista:
+            st.header('Estos son los vuelos disponibles en el areopuerto')
+            ids = lista.keys()
+            for i in  ids:
+                lista[i].showVuelos()
+
+
     def View_Ver_Vuelos(self):
         print("Vuelos")
     
