@@ -48,7 +48,7 @@ class Vuelo:
 
     def show_info(self):
         st.write("Número de Identificación:", self.no_identificacion)
-        st.write("Fecha Programada:", f"{self.fecha_programada.get_dia()}/{self.fecha_programada.get_mes()}/{self.fecha_programada.get_agno()}")
+        st.write("Fecha Programada:", self.fecha_programada)
         st.write("Origen:", self.origen)
         st.write("Destino:", self.destino)
         if self.tripulacion:

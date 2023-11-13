@@ -1,5 +1,4 @@
 from Vista import Vista
-from VehiculosAereos import VehiculosAereos
 from jetPrivado import JetPrivado
 from helicoptero import Helicoptero
 from avion import Avion

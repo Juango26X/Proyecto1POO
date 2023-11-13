@@ -1,8 +1,4 @@
 import streamlit as st
-from VehiculosAereos import VehiculosAereos
-from jetPrivado import JetPrivado
-from helicoptero import Helicoptero
-from avion import Avion
 
 class Torre:
     def __init__(self):

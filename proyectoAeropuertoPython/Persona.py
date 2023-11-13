@@ -10,7 +10,7 @@ class Persona:
         self.Telefono = telefono
         self.Correo = correo
 
-    def Show_Info(self):
+    def ShowInfo(self):
         st.write("Tipo:", self.Tipo)
         st.write("ID:", self.Id)
         st.write("Nombre:", self.Nombre)

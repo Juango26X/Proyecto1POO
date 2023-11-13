@@ -85,28 +85,6 @@ class VehiculosAereos:
     def Get_No_Vuelos(self):
         return len(self.Vuelos_Act)
 
-    def showVuelos(self):
-        if self.Vuelos_Act:
-            if len(self.Vuelos_Act) > 1:
-                st.header('Estos son los vuelos asociados al avion', self.marca)
-                ids = self.Vuelos_Act.keys()
-                for i in ids:
-                    self.Vuelos_Act[i].show_info()
-            else:
-                st.header('Estos es el vuelo asociado al avion', self.marca)
-                ids = self.Vuelos_Act.keys()
-                for i in ids:
-                    self.Vuelos_Act[i].show_info()
-        else:
-            print("No hay vuelos disponibles")
-
-    def elimViuelo(self, pos):
-        if 0 <= pos < len(self.Vuelos_Act):
-            self.Vuelos_Act.pop(pos)
-        else:
-            print("La posición especificada no es válida.")
-        if len(self.Vuelos_Act) < 4:
-            self.Estado = "Servicio"
 
     def Show_Info(self):
         st.header('Esta es la informacion de la areonave:')
@@ -118,6 +96,14 @@ class VehiculosAereos:
         st.write("Agno de Fabricacion:", self.Agno)
         st.write("Estado:", self.Estado)
 
+
+    def showVuelos(self):
+        if self.Vuelos_Act:
+            ids = self.Vuelos_Act.keys()
+            for i in ids:
+                self.Vuelos_Act[i].show_info()
+        else:
+            print("No hay vuelos disponibles")
 
 
     def Verificar_Vuelo(self, Id):

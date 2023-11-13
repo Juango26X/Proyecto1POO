@@ -1,12 +1,7 @@
 import streamlit as st
 import pandas as pd
 from datetime import date
-from VehiculosAereos import VehiculosAereos
-from jetPrivado import JetPrivado
-from helicoptero import Helicoptero
-from avion import Avion
 from mTripulacion import MTripulacion
-from torredecontrol import Torre
 class Vista:
     def __init__(self):
         st.title("Menu principal")
@@ -202,8 +197,9 @@ class Vista:
         if lista:
             st.header('Estos son los vuelos disponibles en el areopuerto')
             ids = lista.keys()
-            for i in  ids:
-                lista[i].showVuelos()
+            for i in ids:
+                tmp = lista[i]
+                tmp.showVuelos()
 
 
     def View_Ver_Vuelos(self):
