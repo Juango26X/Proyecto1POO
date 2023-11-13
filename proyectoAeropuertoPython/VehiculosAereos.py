@@ -100,6 +100,8 @@ class VehiculosAereos:
     def showVuelos(self):
         if self.Vuelos_Act:
             ids = self.Vuelos_Act.keys()
+            print(len(self.Vuelos_Act))
+            print("XD")
             for i in ids:
                 self.Vuelos_Act[i].show_info()
         else:

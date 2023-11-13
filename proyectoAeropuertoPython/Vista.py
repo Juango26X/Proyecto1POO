@@ -181,6 +181,7 @@ class Vista:
         ids = lista.keys()
         df2 = pd.DataFrame({'first column': ids})
         option2 = st.selectbox('A que areonave le gustaria agregar el vuelo? (Seleccione para ver mas informacion)', df2['first column'])
+        print("Se ",option2)
         lista[option2].Show_Info()
         Agregar2 = st.button("Agregar el vuelo", type="primary")
         if Agregar2:
@@ -198,8 +199,7 @@ class Vista:
             st.header('Estos son los vuelos disponibles en el areopuerto')
             ids = lista.keys()
             for i in ids:
-                tmp = lista[i]
-                tmp.showVuelos()
+                lista[i].showVuelos()
 
 
     def View_Ver_Vuelos(self):

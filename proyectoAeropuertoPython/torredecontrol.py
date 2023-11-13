@@ -1,5 +1,5 @@
 import streamlit as st
-
+from Vuelo import Vuelo
 class Torre:
     def __init__(self):
         if 'vehiculo' not in st.session_state:
@@ -14,6 +14,7 @@ class Torre:
 
     def Add_Vuelo(self, id, Vuelo):
         if self.Vehiculos[id]:
+            print("nas;dasd")
             self.Vehiculos[id].addVuelo_T(Vuelo)
             st.session_state['vehiculo'] = self.Vehiculos
 
