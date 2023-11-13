@@ -4,7 +4,7 @@ import Vuelo as Vuelo
 class VehiculosAereos:
     def __init__(self, tipo, marca, modelo, num_asientos, velo_max, autonomia, agno, estado):
         self.Tipo = tipo
-        self.Marca = marca
+        self.marca = marca
         self.Modelo = modelo
         self.Asientos = {i: False for i in range(1, num_asientos + 1)}
         self.Num_asientos = num_asientos
@@ -22,7 +22,7 @@ class VehiculosAereos:
         return self.Tipo
 
     def getMarca(self):
-        return self.Marca
+        return self.marca
 
     def getModelo(self):
         return self.Modelo
@@ -110,7 +110,7 @@ class VehiculosAereos:
 
     def Show_Info(self):
         st.header('Esta es la informacion de la areonave:')
-        st.write("Marca:", self.Marca)
+        st.write("Marca:", self.marca)
         st.write("Modelo:", self.Modelo)
         st.write("Numero de Asientos:", self.Num_asientos)
         st.write("Velocidad Maxima:", self.Velo_Max)
