@@ -42,6 +42,9 @@ class VehiculosAereos:
     def getEstado(self):
         return self.Estado
 
+    def modificarEstado(self,estado):
+        self.Estado = estado
+
     def Show_Asientos_D(self):
         print("Estos son los asientos que se encuentran disponibles:")
         for i, disponible in self.Asientos.items():
@@ -98,6 +101,7 @@ class VehiculosAereos:
 
 
     def showVuelos(self):
+        self.Vuelos_Act = 0
         if self.Vuelos_Act:
             ids = self.Vuelos_Act.keys()
             print(len(self.Vuelos_Act))
