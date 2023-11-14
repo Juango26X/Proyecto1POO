@@ -1,8 +1,9 @@
 import streamlit as st
-import Vuelo as Vuelo
+# import Vuelo as Vuelo
 
 class VehiculosAereos:
-    def __init__(self, tipo, marca, modelo, num_asientos, velo_max, autonomia, agno, estado):
+    def __init__(self, id, tipo, marca, modelo, num_asientos, velo_max, autonomia, agno, estado):
+        self.identifiacion = id
         self.Tipo = tipo
         self.marca = marca
         self.Modelo = modelo
@@ -12,11 +13,9 @@ class VehiculosAereos:
         self.Autonomia = autonomia
         self.Agno = agno
         self.Estado = estado
-        if 'Vuelos' not in st.session_state:
-            st.session_state['Vuelos'] = {}
-            self.Vuelos_Act = {}
-        else:
-            self.tripulacion = st.session_state['Vuelos']
+        self.Vuelos = 0 #Es un entero
+        self.Puerta
+        
 
     def Get_Tipo(self):
         return self.Tipo
@@ -41,9 +40,11 @@ class VehiculosAereos:
 
     def getEstado(self):
         return self.Estado
-
+    
     def modificarEstado(self,estado):
         self.Estado = estado
+    def modificarpuerta(self, puerta):
+        self.Puerta = puerta
 
     def Show_Asientos_D(self):
         print("Estos son los asientos que se encuentran disponibles:")
@@ -72,21 +73,21 @@ class VehiculosAereos:
     def Vaciar_Vuelo(self):
         self.Asientos = {i: False for i in range(1, self.Num_asientos + 1)}
 
-    def addVuelo_T(self, Valor):
-        if len(self.Vuelos_Act) != 3:
-            id = Valor.get_no_identificacion()
-            self.Vuelos_Act[id] = Valor
-            st.session_state['Vuelos'] = self.Vuelos_Act
+    def addVuelo_T(self):
+        print("Entre 1")
+        return True
+        '''
+        salida = False
+        if self.Vuelos < 4:
+            print("Entre 2")
+            self.Vuelos += 1
+            salida = True
         else:
-            st.write("::warning:: La areonave esta totalmente asignada")
-        if len(self.Vuelos_Act) == 3:
-            self.Estado = "Totalmente Asignado"
-
-    def GetVuelo_T(self, pos):
-        return self.Vuelos_Act[pos] if 0 <= pos < len(self.Vuelos_Act) else None
-
+            salida = False
+        return salida
+'''
     def Get_No_Vuelos(self):
-        return len(self.Vuelos_Act)
+        return self.Vuelos
 
 
     def Show_Info(self):
@@ -100,18 +101,7 @@ class VehiculosAereos:
         st.write("Estado:", self.Estado)
 
 
-    def showVuelos(self):
-        self.Vuelos_Act = 0
-        if self.Vuelos_Act:
-            ids = self.Vuelos_Act.keys()
-            print(len(self.Vuelos_Act))
-            print("XD")
-            for i in ids:
-                self.Vuelos_Act[i].show_info()
-        else:
-            print("No hay vuelos disponibles")
-
-
+'''
     def Verificar_Vuelo(self, Id):
         if self.Vuelos_Act:
             for vuelo in self.Vuelos_Act:
@@ -132,3 +122,4 @@ class VehiculosAereos:
                 vuelo.Show_Info(False)
                 return True
         return False
+'''

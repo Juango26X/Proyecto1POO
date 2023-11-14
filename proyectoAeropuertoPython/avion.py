@@ -1,7 +1,7 @@
 from VehiculosAereos import VehiculosAereos  
 class Avion(VehiculosAereos):
-    def __init__(self, tipo, marca, modelo, num_asientos, velo_max, autonomia, agno, estado, altura_max, no_motores, cat):
-        super().__init__(tipo, marca, modelo, num_asientos, velo_max, autonomia, agno, estado)
+    def __init__(self, id, tipo, marca, modelo, num_asientos, velo_max, autonomia, agno, estado, altura_max, no_motores, cat):
+        super().__init__(id, tipo, marca, modelo, num_asientos, velo_max, autonomia, agno, estado)
         self.Altura_Max = altura_max
         self.No_Motores = no_motores
         self.categoria = cat

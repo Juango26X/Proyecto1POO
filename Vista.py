@@ -60,6 +60,7 @@ class Vista:
                 elif tipo == 'Helicoptero':
                     propietario = vehiculo.GetPropietario()
                     st.write(f"El propietario del Jet es {propietario}")
+                st.write("    ---          ")
         else:
             st.info("No hay areonaves hasta el momento", icon="ℹ️")
         
@@ -68,7 +69,7 @@ class Vista:
         option = st.selectbox('Que tipo de areonave desea crear?', ['Avion', 'Helicoptero', 'Jet Privado'])
         return option
                
-    def View_Crear_Avion(self):
+    def View_Crear_Avion(self, aeronaves):
         st.header("Crear un avion")
         id = st.text_input("Ingrese el identificador del avion")
         tipo = "Avion"
@@ -77,7 +78,11 @@ class Vista:
         num_asientos = st.number_input("Ingrese el numero de asientos", step = 1)
         velo_Max = st.number_input("Ingrese la velocidad maxima del avion", step = 1)
         agno = st.number_input("Ingrese el agno de fabricacion", step = 1)
-        estado = st.selectbox("Seleccione el estado del avion", ["En servicio", "Totalmente asignada", "Mantenimiento"])
+        estado = st.selectbox("Seleccione el estado del avion", ["Disponible","En vuelo","puerta de embarque", "En pista de despegue", "Totalmente asignada", "Mantenimiento",])
+        ids = aeronaves.keys()
+        for i in ids:
+            if aeronaves[i].getEstado() == "En pista de despegue":
+                    aeronaves[i].modificarEstado("En vuelo")
         alt_Max = st.number_input("Ingrese la altura maxima del avion", step = 1)
         no_Motores = st.number_input("Ingrese el numero de motores del avion", step = 1)
         cat = st.selectbox("Seleccione la categoria del avion", ["Comercial", "Carga"])
@@ -97,7 +102,7 @@ class Vista:
                 "cat": cat
             }
     
-    def View_Crer_Helicoptero(self):
+    def View_Crer_Helicoptero(self, aeronaves):
         st.header("Crear un helicoptero")
         id = st.text_input("Ingrese el identificador del helicoptero")
         tipo = "Helicoptero"
@@ -106,7 +111,11 @@ class Vista:
         num_asientos = st.number_input("Ingrese el numero de asientos", step = 1)
         velo_Max = st.number_input("Ingrese la velocidad maxima del helicóptero", step = 1)
         agno = st.number_input("Ingrese el agno de fabricacion", step = 1)
-        estado = st.selectbox("Seleccione el estado del helicóptero", ["En servicio", "Totalmente asignada", "Mantenimiento"])
+        estado = st.selectbox("Seleccione el estado del avion", ["Disponible","En vuelo","puerta de embarque", "En pista de despegue", "Totalmente asignada", "Mantenimiento",])
+        ids = aeronaves.keys()
+        for i in ids:
+            if aeronaves[i].getEstado() == "En pista de despegue":
+                    aeronaves[i].modificarEstado("En vuelo")
         capa_elevacion = st.number_input("Ingrese la capa de elevacion del helicóptero", step = 1)
         no_Rotores = st.number_input("Ingrese el numero de rotores del helicóptero", step = 1)
         uso = st.selectbox("Seleccione el uso del helicóptero", ["rescate", "turismo", "transporte", "Otros"])
@@ -126,7 +135,7 @@ class Vista:
                 "uso": uso
             }
         
-    def View_Crear_Jet_Privado(self):
+    def View_Crear_Jet_Privado(self, aeronaves):
         st.header("Crear jet privado")
         id = st.text_input("Ingrese el identificador del Jet")
         tipo = "Jet_Privado"
@@ -135,7 +144,11 @@ class Vista:
         num_asientos = st.number_input("Ingrese el numero de asientos", step = 1)
         velo_Max = st.number_input("Ingrese la velocidad maxima del jet privado", step = 1)
         agno = st.number_input("Ingrese el agno de fabricacion", step = 1)
-        estado = st.selectbox("Seleccione el estado del jet privado", ["En servicio", "Totalmente asignada", "Mantenimiento"])
+        estado = st.selectbox("Seleccione el estado del avion", ["Disponible","En vuelo","puerta de embarque", "En pista de despegue", "Totalmente asignada", "Mantenimiento",])
+        ids = aeronaves.keys()
+        for i in ids:
+            if aeronaves[i].getEstado() == "En pista de despegue":
+                    aeronaves[i].modificarEstado("En vuelo")
         propietario = st.text_input("Ingrese el nombre del propietario del Jet")
         Agregar = st.button("Agregar la areonave", type="primary")
         if Agregar:

@@ -1,8 +1,8 @@
 from VehiculosAereos import VehiculosAereos  # Importa la clase Vehiculos_Aereos desde el archivo correspondiente
 
 class Helicoptero(VehiculosAereos):
-    def __init__(self, tipo, marca, modelo, num_asientos, velo_max, autonomia, agno, estado, no_rotores, capa_elevacion, uso):
-        super().__init__(tipo, marca, modelo, num_asientos, velo_max, autonomia, agno, estado)
+    def __init__(self, id,tipo, marca, modelo, num_asientos, velo_max, autonomia, agno, estado, no_rotores, capa_elevacion, uso):
+        super().__init__(id,tipo, marca, modelo, num_asientos, velo_max, autonomia, agno, estado)
         self.No_Rotores = no_rotores
         self.Capa_Elevacion = capa_elevacion
         self.uso = uso

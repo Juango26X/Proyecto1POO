@@ -1,7 +1,7 @@
 from VehiculosAereos import VehiculosAereos
 class JetPrivado(VehiculosAereos):
-    def __init__(self, tipo, marca, modelo, num_asientos, velo_max, autonomia, agno, estado, propietario):
-        super().__init__(tipo, marca, modelo, num_asientos, velo_max, autonomia, agno, estado)
+    def __init__(self, id,tipo, marca, modelo, num_asientos, velo_max, autonomia, agno, estado, propietario):
+        super().__init__(id,tipo, marca, modelo, num_asientos, velo_max, autonomia, agno, estado)
         self.Propietario = propietario
         self.Servicios = ['Hola, a']
         self.Destinos = ['Adios, b']

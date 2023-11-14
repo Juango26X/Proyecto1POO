@@ -39,6 +39,10 @@ class VehiculosAereos:
 
     def getEstado(self):
         return self.Estado
+    
+    def modificarEstado(self,estado):
+        self.Estado = estado
+
 
     def Show_Asientos_D(self):
         print("Estos son los asientos que se encuentran disponibles:")

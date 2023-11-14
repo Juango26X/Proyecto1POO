@@ -7,8 +7,9 @@ class Pasajero(Persona):
         self.InfoMedica = infoMedica
 
     def ShowInfoP(self):
-        print("Información del pasajero:")
-        self.ShowInfo()
-        print(f"Nacionalidad: {self.Nacionalidad}")
-        print(f"Número de Maletas: {self.NoMaletas}")
-        print(f"Información Médica: {self.InfoMedica}")
+        info = self.ShowInfo()
+        return{
+            "info" : info,
+            "Nacionalidad" : self.Nacionalidad,
+            "Informacion Médica" : self.InfoMedica
+        }

@@ -1,18 +1,21 @@
-import streamlit as st
-from datetime import date
+#from datetime import date
+#import streamlit as st
 from mTripulacion import MTripulacion  
 
 class Vuelo:
-    def __init__(self, no_identificacion, fecha, origen, destino, tripu):
+    def __init__(self, no_identificacion, fecha, origen, destino, tripu, id):
         self.no_identificacion = no_identificacion
         self.fecha_programada = fecha
         self.origen = origen
         self.destino = destino
-        if 'tripulacion' not in st.session_state:
-            st.session_state['tripulacion'] = tripu
-            self.tripulacion = tripu
-        else:
-            self.tripulacion = st.session_state['tripulacion']
+        self.tripulacion = tripu
+        self.nave = id
+
+    def get_nave(self):
+        return self.nave
+    
+    def set_nave(self, id):
+        self.nave = id
 
     def get_no_identificacion(self):
         return self.no_identificacion
@@ -40,18 +43,28 @@ class Vuelo:
 
     def add_Tripulacion(self, miemrbro):
         self.tripulacion.append(miemrbro)
-        st.session_state['tripulacion'] = self.tripulacion
 
     def get_Tripulacion(self):
         return self.tripulacion
-
-
+    
     def show_info(self):
-        st.write("Número de Identificación:", self.no_identificacion)
-        st.write("Fecha Programada:", self.fecha_programada)
-        st.write("Origen:", self.origen)
-        st.write("Destino:", self.destino)
+        print('AAAAA', type(self.tripulacion))
+        print('Esta entrando ', len(self.tripulacion))
+        return {
+            'no_identificacion': self.no_identificacion,
+            'fecha_programada' : self.fecha_programada,
+            'origen' : self.origen,
+            'destino' : self.destino,
+            'Tripulacion' : self.tripulacion
+        }
+    '''
+        st.write(f"Número de vuelo: {self.no_identificacion}")
+        st.write('Fecha actual: ', self.fecha_programada)
+        st.write(f"Origen: {self.origen}")
+        st.write(f"Destino: {self.destino}")
+        
         if self.tripulacion:
             st.header('Informacion de un miembro de la tripulacion:')
             for tripulante in self.tripulacion:
                 tripulante.ShowInfoM()
+        '''

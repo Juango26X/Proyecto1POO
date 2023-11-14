@@ -3,10 +3,13 @@ from jetPrivado import JetPrivado
 from helicoptero import Helicoptero
 from avion import Avion
 from VehiculosAereos import VehiculosAereos
-#from torredecontrol import Torre
+from torredecontrol import Torre
 import streamlit as st
 from Vuelo import Vuelo
 from pasajero import  Pasajero
+from PIL import Image
+import json
+import requests
 
 class Controller:
     def __init__(self):
@@ -68,7 +71,11 @@ class Controller:
             self.Consulta()
 
     def Info_Areopuerto(self):
+        st.write("El Aeropuerto Internacional Alfonso Bonilla Aragón, ubicado en Palmira, Valle del Cauca, es el principal aeropuerto que sirve a la ciudad de Cali, Colombia. Conocido también como Aeropuerto de Cali, es uno de los aeródromos más importantes del país. Este moderno aeropuerto cuenta con instalaciones actualizadas y servicios que atienden a pasajeros nacionales e internacionales. Con una infraestructura diseñada para ofrecer comodidad y eficiencia, el Aeropuerto de Cali alberga diversas aerolíneas que conectan la región con destinos nacionales e internacionales. Sus instalaciones incluyen salas de espera cómodas, puntos de información, servicios de migración y aduana, así como locales comerciales y restaurantes que brindan una variedad de opciones para satisfacer las necesidades de los viajeros. Además, el aeropuerto se destaca por sus medidas de seguridad y servicios de transporte terrestre que facilitan la conexión con la ciudad de Cali y otras áreas circundantes. Con una gestión eficiente y una ubicación estratégica, el Aeropuerto Internacional Alfonso Bonilla Aragón desempeña un papel fundamental en la conectividad aérea de la región, ofreciendo a los viajeros una experiencia agradable y funcional.")
         print("Info del areopuerto")
+        image_path = r"C:\Users\ASUS\Desktop\proyecto1POO\Proyecto1POO\proyectoAeropuertoPython\08-AEROBONILLA-2.jpg"
+        image = Image.open(image_path)
+        st.image(image, caption="foto del aeropuerto", use_column_width=True)
         
     def Estado_Areonaves(self):
         self.view.View_Estado_Areonaves(self.Vehiculos)
@@ -79,18 +86,18 @@ class Controller:
         st.session_state['option'] = option
         
         if option == 'Avion':
-            data = self.view.View_Crear_Avion()
+            data = self.view.View_Crear_Avion(self.Vehiculos)
             if data:
                 print("entro")
                 avion = Avion(id=data["id"], tipo=data["tipo"], marca=data["marca"], modelo=data["modelo"], num_asientos=data["num_asientos"], velo_max=data["velo_Max"], autonomia=data["agno"], agno=data["agno"], estado=data["estado"], altura_max=data["alt_Max"], no_motores=data["no_Motores"], cat=data["cat"])
                 self.add_Vehiculo(data["id"], avion)
         elif option == 'Helicoptero':
-            data = self.view.View_Crer_Helicoptero()
+            data = self.view.View_Crer_Helicoptero(self.Vehiculos)
             if data:
                 helicoptero = Helicoptero(id=data["id"], tipo=data["tipo"], marca=data["marca"], modelo=data["modelo"], num_asientos=data["num_asientos"], velo_max=data["velo_Max"], autonomia=data["agno"], agno=data["agno"], estado=data["estado"], capa_elevacion=data["capa_elevacion"], no_rotores=data["no_Rotores"], uso=data["uso"])
                 self.add_Vehiculo(data["id"], helicoptero)
         elif option == 'Jet Privado':
-            data = self.view.View_Crear_Jet_Privado()
+            data = self.view.View_Crear_Jet_Privado(self.Vehiculos)
             if data:
                 jet_privado = JetPrivado(id=data["id"], tipo=data["tipo"], marca=data["marca"], modelo=data["modelo"], num_asientos=data["num_asientos"], velo_max=data["velo_Max"], autonomia=data["agno"], agno=data["agno"], estado=data["estado"], propietario=data["propietario"])
                 self.add_Vehiculo(data["id"],jet_privado)
@@ -122,4 +129,21 @@ class Controller:
         print("Areopuerto")
     
     def Consulta(self):
-        print("Consulta")
+            def obtener_global(nombre_pais):
+                print("Consulta")
+                st.write("vamole")
+                url = f"https://restcountries.com/v3.1/name/{nombre_pais}?fullText=true"
+                response = requests.get(url)
+                data = response.json()[0]
+
+                st.write(f"Nombre del país: **{data['name']['common']}**")
+                st.write(f"Moneda: **{data['currencies']}**")
+                st.write(f"Ciudad capital: **{data['capital'][0]}**")
+                st.write(f"Región: **{data['region']}**")
+                st.write(f"Población: **{data['population']}**")
+                st.image(data['flags']['png'], width=200)
+
+
+            pais = st.text_input("Ingrese el nombre del país:")
+            if pais:
+                obtener_global(pais)

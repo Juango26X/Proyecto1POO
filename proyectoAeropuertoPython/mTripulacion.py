@@ -9,9 +9,12 @@ class MTripulacion(Persona):
         self.HorasMax = horasMax
 
     def ShowInfoM(self):
-        st.write("La información del miembro de la tripulación es:")
-        self.ShowInfo()
-        st.write(f"Puesto: {self.Puesto}")
-        st.write(f"Experiencia: {self.Exp} años")
-        st.write(f"Horas Máximas: {self.HorasMax} horas")
+        data = self.ShowInfo()
+        return{
+            'info' : data,
+            'Puesto' : self.Puesto,
+            'Exp' : self.Exp,
+            'HorasMax' : self.HorasMax
+        }
+        
 
