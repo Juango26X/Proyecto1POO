@@ -6,6 +6,7 @@ class Helicoptero(VehiculosAereos):
         self.No_Rotores = no_rotores
         self.Capa_Elevacion = capa_elevacion
         self.uso = uso
+        self.Puerta="sin asignar"
 
     def getNo_Rotores(self):
         return self.No_Rotores

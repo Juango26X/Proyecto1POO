@@ -14,9 +14,12 @@ class VehiculosAereos:
         self.Agno = agno
         self.Estado = estado
         self.Vuelos = 0 #Es un entero
-        self.Puerta
-        
+        self.Puerta="sin asignar"
 
+    def modificarpuerta(self, puerta):
+        self.Puerta = puerta 
+    def Getpuerta(self):
+        st.write("-", self.Puerta)
     def Get_Tipo(self):
         return self.Tipo
 
@@ -43,8 +46,7 @@ class VehiculosAereos:
     
     def modificarEstado(self,estado):
         self.Estado = estado
-    def modificarpuerta(self, puerta):
-        self.Puerta = puerta
+
 
     def Show_Asientos_D(self):
         print("Estos son los asientos que se encuentran disponibles:")

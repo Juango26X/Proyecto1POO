@@ -5,6 +5,7 @@ class JetPrivado(VehiculosAereos):
         self.Propietario = propietario
         self.Servicios = ['Hola, a']
         self.Destinos = ['Adios, b']
+        self.Puerta="sin asignar"
     '''
         Num_Servicios = int(input("Cuantos servicios a bordo tiene el Jet Privado? "))
         for i in range(Num_Servicios):
@@ -15,7 +16,6 @@ class JetPrivado(VehiculosAereos):
             destino = input("Ingrese un destino frecuente del jet privado: ")
             self.Destinos.append(destino)
     '''
-
     def GetPropietario(self):
         return self.Propietario
 

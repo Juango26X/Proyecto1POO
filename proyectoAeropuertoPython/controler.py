@@ -1,4 +1,5 @@
 from Vista import Vista
+import pandas as pd
 from jetPrivado import JetPrivado
 from helicoptero import Helicoptero
 from avion import Avion
@@ -66,7 +67,7 @@ class Controller:
         elif option == 'Comprar vuelos':
             self.Comprar_Vuelos()
         elif option == 'Acceder como areopuerto':
-            self.arepuerto()
+            self.arepuerto(self.Vehiculos)
         elif option == 'Consulta global':
             self.Consulta()
 
@@ -108,7 +109,7 @@ class Controller:
             data = self.view.Crear_Vuelo(self.Vehiculos)
             if data:
                 vuelo = Vuelo(no_identificacion=data["no_identificacion"], fecha=data["fecha"], origen=data["origen"], destino=data["destino"], tripu=data["tripulacion"], id=data["id"])
-                
+
                 self.Add_Vuelo(data['id'], vuelo)
         elif option == 'Ver vuelos disponibles':
             self.view.Ver_Vuelos_Areolinea(self.Vuelos_Act, True)
@@ -125,9 +126,21 @@ class Controller:
                 pasajero_tmp = Pasajero(id=pasajero['id'], nombre=pasajero['nombre'], fechaNacimiento=pasajero['fechaNacimiento'],genero=pasajero['genero'], direccion=pasajero['direccion'], telefono=pasajero['telefono'], correo=pasajero['correo'], nacionalidad=pasajero['Nacionalidad'], noMaletas=pasajero['noMaletas'], infoMedica=pasajero['InfoMedica'])
                 self.Clientes[pasajero['id']] = pasajero_tmp
                 st.session_state['Clientes'] = self.Clientes
-    def arepuerto(self):
+
+    def arepuerto(self, lista):
         print("Areopuerto")
-    
+        st.header('Debe seleccionar la areonave a la que va a modificar la puerta')
+        ids = lista.keys()
+        df2 = pd.DataFrame({'first column': ids})
+        optionx = st.selectbox('A que areonave le gustaria modificar la puerta de embarque? (Seleccione para ver mas informacion)', df2['first column'])
+        try:
+            lista[optionx].modificarpuerta(st.text_input("ingresa puerta a asignar"))
+            st.write("la nueva puerta es:")
+            lista[optionx].Getpuerta()
+        except KeyError as e:
+            print("te quiero mucho profe")
+            st.error("cagaste, no hay niguna aeronave creada hasta el momento")
+
     def Consulta(self):
             def obtener_global(nombre_pais):
                 print("Consulta")
