@@ -6,6 +6,7 @@ from torredecontrol import Torre
 import streamlit as st
 from Vuelo import Vuelo
 from PIL import Image
+import json
 import requests
 class Controller:
     def __init__(self):
@@ -87,35 +88,21 @@ class Controller:
         print("Areopuerto")
     
     def Consulta(self):
-        print("Consulta")
-        st.write("vamole")
-        def obtener_info_pais(nombre_pais):
-            url = f"https://restcountries.com/v3.1/name/{nombre_pais}"
+        def obtener_global(nombre_pais):
+            print("Consulta")
+            st.write("vamole")
+            url = f"https://restcountries.com/v3.1/name/{nombre_pais}?fullText=true"
             response = requests.get(url)
+            data = response.json()[0]
 
-            if response.status_code == 200:
-                datos_pais = response.json()[0]
-                return datos_pais
-            else:
-                st.error(f"Error al obtener información del país {nombre_pais}")
-                return None
+            st.write(f"Nombre del país: **{data['name']['common']}**")
+            st.write(f"Moneda: **{data['currencies']}**")
+            st.write(f"Ciudad capital: **{data['capital'][0]}**")
+            st.write(f"Región: **{data['region']}**")
+            st.write(f"Población: **{data['population']}**")
+            st.image(data['flags']['png'], width=200)
 
-    def mostrar_info_pais(datos_pais):
-        if datos_pais:
-            st.write(f"Nombre del país: {datos_pais['name']['common']}")
-            st.write(f"Moneda: {datos_pais['currencies'].get('primary')}")
-            st.write(f"Ciudad Capital: {datos_pais['capital'][0]}")
-            st.write(f"Región: {datos_pais['region']}")
-            st.write(f"Población: {datos_pais['population']}")
-            st.image(datos_pais['flags']['png'], caption="Bandera del país", use_column_width=True)
-        else:
-            st.warning("No se pudo obtener información del país.")
 
-    # Interfaz de usuario con Streamlit
-    st.title("Información del País")
-
-    # Input para que el usuario ingrese el nombre del país
-    nombre_pais = st.text_input("Ingrese el nombre del país:")
-    if st.button("Obtener Información"):
-        datos_pais = obtener_info_pais(nombre_pais)
-        mostrar_info_pais(datos_pais)
+        pais = st.text_input("Ingrese el nombre del país:")
+        if pais:
+            obtener_global(pais)
